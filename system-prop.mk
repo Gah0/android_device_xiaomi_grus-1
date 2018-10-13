@@ -102,6 +102,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
     DEVICE_PROVISIONED=1 \
+    persist.dbg.volte_avail_ovr=1 \
+    persist.dbg.vt_avail_ovr=1 \
     persist.vendor.radio.atfwd.start=true \
     persist.vendor.radio.flexmap_type=none \
     persist.vendor.radio.force_on_dc=true \
