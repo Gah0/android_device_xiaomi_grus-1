@@ -13,11 +13,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 $(call inherit-product, device/qcom/common/common64.mk)
 
-PRODUCT_NAME := sdm710
-PRODUCT_DEVICE := sdm710
-PRODUCT_BRAND := Android
-PRODUCT_MODEL := SDM710 for arm64
-
 #Initial bringup flags
 TARGET_USES_AOSP := false
 TARGET_USES_AOSP_FOR_AUDIO := false
