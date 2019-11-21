@@ -26,8 +26,7 @@
 BOARD_VENDOR := xiaomi
 DEVICE_PATH := device/xiaomi/grus
 
-TARGET_BOARD_PLATFORM := sdm710
-
+# Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
@@ -49,6 +48,10 @@ TARGET_OTA_ASSERT_DEVICE := grus
 # Bootloader
 TARGET_NO_BOOTLOADER := true
 TARGET_BOOTLOADER_BOARD_NAME := sdm710
+
+# Platform
+TARGET_BOARD_PLATFORM := sdm710
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno616
 
 #Enable HW based full disk encryption
 TARGET_HW_DISK_ENCRYPTION := true
