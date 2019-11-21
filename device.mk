@@ -207,5 +207,4 @@ PRODUCT_PACKAGES += android.hardware.thermal@1.0-impl \
 # Enable vndk-sp Libraries
 PRODUCT_PACKAGES += vndk_package
 
-TARGET_USES_MKE2FS := true
 $(call inherit-product, build/make/target/product/product_launched_with_p.mk)
