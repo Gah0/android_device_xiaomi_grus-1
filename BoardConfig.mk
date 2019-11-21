@@ -27,7 +27,6 @@ BOARD_VENDOR := xiaomi
 DEVICE_PATH := device/xiaomi/grus
 
 TARGET_BOARD_PLATFORM := sdm710
-TARGET_BOOTLOADER_BOARD_NAME := sdm710
 
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
@@ -46,6 +45,10 @@ TARGET_USES_64_BIT_BINDER := true
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := grus
+
+# Bootloader
+TARGET_NO_BOOTLOADER := true
+TARGET_BOOTLOADER_BOARD_NAME := sdm710
 
 #Enable HW based full disk encryption
 TARGET_HW_DISK_ENCRYPTION := true
