@@ -209,9 +209,6 @@ PRODUCT_PROPERTY_OVERRIDES  += \
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.qcom.bluetooth.soc=cherokee
 
-PRODUCT_FULL_TREBLE_OVERRIDE := true
-PRODUCT_VENDOR_MOVE_ENABLED := true
-
 PRODUCT_PROPERTY_OVERRIDES += rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so
 
 #Set property to enable zRam
@@ -234,9 +231,6 @@ PRODUCT_PROPERTY_OVERRIDES  += \
   ro.vendor.at_library=libqti-at.so\
   persist.vendor.qti.games.gt.prof=1
 
-#Enable QTI KEYMASTER and GATEKEEPER HIDLs
-KMGK_USE_QTI_SERVICE := true
-
 #Enable KEYMASTER 4.0
 ENABLE_KM_4_0 := true
 
@@ -244,8 +238,6 @@ ENABLE_KM_4_0 := true
 ifneq ($(BOARD_AVB_ENABLE), true)
     PRODUCT_SUPPORTS_VERITY := true
 endif
-
-TARGET_MOUNT_POINTS_SYMLINKS := false
 
 #Enable DuerOS for voiceUI
 BOARD_VOICEUI_USE_DUEROS := true
@@ -257,8 +249,6 @@ PRODUCT_PACKAGES += android.hardware.thermal@1.0-impl \
 
 # Enable vndk-sp Libraries
 PRODUCT_PACKAGES += vndk_package
-
-PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE:=true
 
 TARGET_USES_MKE2FS := true
 $(call inherit-product, build/make/target/product/product_launched_with_p.mk)
