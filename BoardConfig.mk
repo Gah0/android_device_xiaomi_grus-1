@@ -3,6 +3,7 @@
 # Product-specific compile-time definitions.
 #
 
+BOARD_VENDOR := xiaomi
 DEVICE_PATH := device/xiaomi/grus
 
 TARGET_BOARD_PLATFORM := sdm710
@@ -30,7 +31,7 @@ BOARD_SECCOMP_POLICY := $(DEVICE_PATH)/seccomp
 TARGET_USES_UEFI := true
 TARGET_NO_KERNEL := false
 BOARD_PRESIL_BUILD := true
--include $(QCPATH)/common/sdm710/BoardConfigVendor.mk
+-include vendor/xiaomi/grus/BoardConfigVendor.mk
 
 # Some framework code requires this to enable BT
 BOARD_HAVE_BLUETOOTH := false
