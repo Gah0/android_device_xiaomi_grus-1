@@ -88,6 +88,9 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 # Charger Mode
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
+# CNE and DPM
+BOARD_USES_QCNE := true
+
 #Enable HW based full disk encryption
 TARGET_HW_DISK_ENCRYPTION := true
 TARGET_HW_DISK_ENCRYPTION_PERF := true
