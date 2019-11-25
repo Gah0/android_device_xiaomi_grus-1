@@ -331,4 +331,3 @@ PRODUCT_BOOT_JARS += \
 # Enable vndk-sp Libraries
 PRODUCT_PACKAGES += vndk_package
 
-$(call inherit-product, build/make/target/product/product_launched_with_p.mk)
