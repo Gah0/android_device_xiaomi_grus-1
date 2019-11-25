@@ -300,3 +300,6 @@ persist.radio.charge_sar_control=false
 persist.bsquare.usecase.support=1
 persist.bsquare.usecasedetect.wantusbsensor=0
 persist.bsquare.usecasedetect.wantheadsetsensor=1
+
+# Maintainer
+ro.mk.maintainer=subdragonzj
