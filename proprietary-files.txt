@@ -49,29 +49,16 @@ vendor/lib/rfsa/adsp/libscveT2T_skel.so
 
 # Audio
 vendor/etc/audio.scd
-vendor/lib64/hw/audio.primary.sdm710.so
 vendor/lib64/libacdb-fts.so
 vendor/lib64/libacdbrtac.so
 vendor/lib64/libadiertac.so
 vendor/lib64/libaudcal.so
-vendor/lib64/libaudioalsa.so
-vendor/lib64/libaudio_log_utils.so
-vendor/lib64/libaudioroute_ext.so
 vendor/lib64/libqtigef.so
-vendor/lib64/libtinycompress_vendor.so
-vendor/lib/hw/audio.primary.sdm710.so
 vendor/lib/libacdb-fts.so
 vendor/lib/libacdbrtac.so
 vendor/lib/libadiertac.so
-vendor/lib/libadm.so
 vendor/lib/libaudcal.so
-vendor/lib/libaudioalsa.so
-vendor/lib/libaudio_log_utils.so
-vendor/lib/libaudioroute_ext.so
 vendor/lib/libqtigef.so
-vendor/lib/libtinycompress_vendor.so
-vendor/lib/libdrc.so
-vendor/lib/libsurround_3mic_proc.so
 
 # Audio FX modules
 etc/permissions/audiosphere.xml
