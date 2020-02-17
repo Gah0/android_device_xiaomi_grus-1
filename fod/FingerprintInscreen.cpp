@@ -30,6 +30,8 @@
 #define DISPPARAM_FOD_BACKLIGHT_HBM "0x1D007FF"
 #define DISPPARAM_FOD_BACKLIGHT_RESET "0x2D01000"
 
+#define FLICKER_FREE_NODE "/sys/devices/platform/soc/soc:qcom,dsi-display@18/msm_fb_ea_enable"
+
 #define FOD_STATUS_PATH "/sys/devices/virtual/touch/tp_dev/fod_status"
 #define FOD_STATUS_ON 1
 #define FOD_STATUS_OFF 0
@@ -87,12 +89,20 @@ Return<void> FingerprintInscreen::onFinishEnroll() {
 }
 
 Return<void> FingerprintInscreen::onPress() {
+    shouldRestoreDcDimming = get(FLICKER_FREE_NODE, 0);
+    if (shouldRestoreDcDimming == 1) {
+        set(FLICKER_FREE_NODE, 0);
+    }
     set(DISPPARAM_PATH, DISPPARAM_FOD_BACKLIGHT_HBM);
     xiaomiFingerprintService->extCmd(COMMAND_NIT, PARAM_NIT_FOD);
     return Void();
 }
 
 Return<void> FingerprintInscreen::onRelease() {
+    if (shouldRestoreDcDimming == 1) {
+        set(FLICKER_FREE_NODE, 1);
+        shouldRestoreDcDimming = 0;
+    }
     set(DISPPARAM_PATH, DISPPARAM_FOD_BACKLIGHT_RESET);
     xiaomiFingerprintService->extCmd(COMMAND_NIT, PARAM_NIT_NONE);
     return Void();

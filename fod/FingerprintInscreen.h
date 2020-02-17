@@ -53,6 +53,7 @@ public:
     Return<void> setCallback(const sp<::vendor::mokee::biometrics::fingerprint::inscreen::V1_0::IFingerprintInscreenCallback>& callback) override;
 
 private:
+    int shouldRestoreDcDimming;
     sp<IXiaomiFingerprint> xiaomiFingerprintService;
 };
 
