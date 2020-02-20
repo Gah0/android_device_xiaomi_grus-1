@@ -94,28 +94,18 @@ vendor/firmware/cs35l41-dsp1-diag.wmfw
 vendor/firmware/cs35l41-dsp1-spk-prot.bin
 vendor/firmware/cs35l41-dsp1-spk-prot.wmfw
 
-# ANT+ (system) - from qcs605-eng 9 PKQ1.190101.001 22 test-keys
-lib/com.qualcomm.qti.ant@1.0.so|e99b1aec08a6c5a48aaa5a866319f9692614e931
--lib/libantradio.so|88325bafc5603a92c0fd7c49ddc72dca58542055
-lib64/com.qualcomm.qti.ant@1.0.so|8927ece2baecd9d5416786523147044aba46dcce
--lib64/libantradio.so|562b15d5ca0fbf3f1ad42c578b8c7fd4c277eed6
-
-# ANT+ (vendor) - from qcs605-eng 9 PKQ1.190101.001 22 test-keys
-vendor/lib/com.qualcomm.qti.ant@1.0.so|170e119957faa5cb725b022d486eddb6ea470d6b
-vendor/lib/hw/com.qualcomm.qti.ant@1.0-impl.so|81e82381bac0f4815177ea77f0c6572f3acf3ec7
-vendor/lib64/com.qualcomm.qti.ant@1.0.so|7759fabc3c335b54f241821e19ab93632e1d30fd
-vendor/lib64/hw/com.qualcomm.qti.ant@1.0-impl.so|55cb0c0759d27c8180f0ee9b6035a7b3fb859cf3
-
 # Bluetooth
-vendor/lib64/com.qualcomm.qti.bluetooth_audio@1.0.so
-vendor/lib64/hw/com.qualcomm.qti.bluetooth_audio@1.0-impl.so
-vendor/lib/com.qualcomm.qti.bluetooth_audio@1.0.so
-vendor/lib/hw/com.qualcomm.qti.bluetooth_audio@1.0-impl.so
-
 vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti
+vendor/bin/wcnss_filter
 vendor/etc/init/android.hardware.bluetooth@1.0-service-qti.rc
-vendor/lib/hw/android.hardware.bluetooth@1.0-impl-qti.so
+vendor/lib64/com.qualcomm.qti.bluetooth_audio@1.0.so
 vendor/lib64/hw/android.hardware.bluetooth@1.0-impl-qti.so
+vendor/lib64/hw/com.qualcomm.qti.bluetooth_audio@1.0-impl.so
+vendor/lib64/libbtnv.so
+vendor/lib/com.qualcomm.qti.bluetooth_audio@1.0.so
+vendor/lib/hw/android.hardware.bluetooth@1.0-impl-qti.so
+vendor/lib/hw/com.qualcomm.qti.bluetooth_audio@1.0-impl.so
+vendor/lib/libbtnv.so
 
 # Bluetooth (aptX) - from crosshatch - PD1A.180720.030
 lib64/libaptX_encoder.so|0cebad28afcf29f931bdc2d24fce2730dc882ecf
@@ -527,19 +517,6 @@ vendor/lib64/vendor.goodix.hardware.biometrics.fingerprint@2.1.so
 vendor/lib64/vendor.qti.hardware.fingerprint@1.0.so
 vendor/lib/vendor.qti.hardware.fingerprint@1.0.so
 
-# FM - from qcs605-eng 9 PKQ1.190101.001 22 test-keys
-lib/libfm-hci.so|b066567e07279bf59e78f7d318302dd706bb80fe
-lib/fm_helium.so|fb2a591a61122bbdf818ba9e6c931aa7c3d8a953
-lib64/libfm-hci.so|24cd3321d251409aec7d5b6fe160c9fd37a12af5
-lib64/fm_helium.so|e41e3a18f5a0dc666adad471e7332c707b4d2044
-vendor/bin/fm_qsoc_patches|0606f812abb9e0b74875a5819d24c43dc127e1af
--lib/vendor.qti.hardware.fm@1.0.so|e383388c912ee43bd00eefcac60e179c863e858b
--lib64/vendor.qti.hardware.fm@1.0.so|5c5beea6433843df16650789c6bab947b371c23a
-vendor/lib/hw/vendor.qti.hardware.fm@1.0-impl.so|b58c7e1ba7f7ff2b1f525c0cdc3864e885b97cf2
-vendor/lib/vendor.qti.hardware.fm@1.0.so|ff103851777cad17b665e1ea2df37deebdcbee43
-vendor/lib64/hw/vendor.qti.hardware.fm@1.0-impl.so|3d9c60edfb5a69e299f9dbfb974d8b7cca272932
-vendor/lib64/vendor.qti.hardware.fm@1.0.so|b1572c12b2e5701c488d65aa4651b8ff9437f6ee
-
 # Gatekeeper
 vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti
 vendor/etc/init/android.hardware.gatekeeper@1.0-service-qti.rc
@@ -776,7 +753,6 @@ vendor/lib64/vendor.xiaomi.hardware.mtdservice@1.0.so
 vendor/etc/init/android.hardware.neuralnetworks@1.1-service-qti.rc
 vendor/bin/hw/android.hardware.neuralnetworks@1.1-service-qti
 vendor/lib64/libhexagon_nn_stub.so
-vendor/lib/rfsa/adsp/libhexagon_nn_skel.so
 
 # NFC firmware
 vendor/firmware/libpn553_rec.so
