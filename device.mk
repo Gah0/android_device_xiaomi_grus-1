@@ -115,7 +115,8 @@ PRODUCT_PACKAGES += \
     com.android.nfc_extras \
     com.nxp.nfc.nq \
     nqnfcee_access.xml \
-    nqnfcse_access.xml
+    nqnfcse_access.xml \
+    SecureElement
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/nfc/libnfc-nci.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/libnfc-nci.conf \
