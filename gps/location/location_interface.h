@@ -1,4 +1,4 @@
-/* Copyright (c) 2017-2019 The Linux Foundation. All rights reserved.
+/* Copyright (c) 2017-2020 The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -31,6 +31,7 @@
 
 #include <LocationAPI.h>
 #include <gps_extended_c.h>
+#include <functional>
 
 /* Used for callback to deliver GNSS energy consumed */
 /** @fn
@@ -77,15 +78,15 @@ struct GnssInterface {
     void (*agpsDataConnFailed)(AGpsExtType agpsType);
     void (*getDebugReport)(GnssDebugReport& report);
     void (*updateConnectionStatus)(bool connected, int8_t type, bool roaming,
-                                   NetworkHandle networkHandle);
-    void (*odcpiInit)(const OdcpiRequestCallback& callback);
+                                   NetworkHandle networkHandle, std::string& apn);
+    void (*odcpiInit)(const OdcpiRequestCallback& callback, OdcpiPrioritytype priority);
     void (*odcpiInject)(const Location& location);
     void (*blockCPI)(double latitude, double longitude, float accuracy,
                      int blockDurationMsec, double latLonDiffThreshold);
     void (*getGnssEnergyConsumed)(GnssEnergyConsumedCallback energyConsumedCb);
     void (*enableNfwLocationAccess)(bool enable);
     void (*nfwInit)(const NfwCbInfo& cbInfo);
-    void (*getPowerStateChanges)(void* powerStateCb);
+    void (*getPowerStateChanges)(std::function<void(bool)> powerStateCb);
     void (*injectLocationExt)(const GnssLocationInfoNotification &locationInfo);
     void (*updateBatteryStatus)(bool charging);
     void (*updateSystemPowerState)(PowerStateType systemPowerState);
@@ -95,6 +96,8 @@ struct GnssInterface {
                                    const GnssSvIdConfig& svIdConfig);
     uint32_t (*gnssResetSvConfig)();
     uint32_t (*configLeverArm)(const LeverArmConfigInfo& configInfo);
+    uint32_t (*configRobustLocation)(bool enable, bool enableForE911);
+    bool (*isSS5HWEnabled)();
 };
 
 struct BatchingInterface {

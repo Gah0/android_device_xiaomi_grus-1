@@ -1,4 +1,4 @@
-/* Copyright (c) 2017-2019, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2017-2020, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -66,14 +66,14 @@ static void agpsDataConnOpen(AGpsExtType agpsType, const char* apnName, int apnL
 static void agpsDataConnClosed(AGpsExtType agpsType);
 static void agpsDataConnFailed(AGpsExtType agpsType);
 static void getDebugReport(GnssDebugReport& report);
-static void updateConnectionStatus(bool connected, int8_t type, bool roaming = false,
-                                   NetworkHandle networkHandle = NETWORK_HANDLE_UNKNOWN);
+static void updateConnectionStatus(bool connected, int8_t type, bool roaming,
+                                   NetworkHandle networkHandle, string& apn);
 static void getGnssEnergyConsumed(GnssEnergyConsumedCallback energyConsumedCb);
 static void enableNfwLocationAccess(bool enable);
 static void nfwInit(const NfwCbInfo& cbInfo);
-static void getPowerStateChanges(void* powerStateCb);
+static void getPowerStateChanges(std::function<void(bool)> powerStateCb);
 
-static void odcpiInit(const OdcpiRequestCallback& callback);
+static void odcpiInit(const OdcpiRequestCallback& callback, OdcpiPrioritytype priority);
 static void odcpiInject(const Location& location);
 
 static void blockCPI(double latitude, double longitude, float accuracy,
@@ -87,6 +87,8 @@ static uint32_t gnssUpdateSvConfig(const GnssSvTypeConfig& svTypeConfig,
                                    const GnssSvIdConfig& svIdConfig);
 static uint32_t gnssResetSvConfig();
 static uint32_t configLeverArm(const LeverArmConfigInfo& configInfo);
+static uint32_t configRobustLocation(bool enable, bool enableForE911);
+static bool isSS5HWEnabled();
 
 static const GnssInterface gGnssInterface = {
     sizeof(GnssInterface),
@@ -132,6 +134,8 @@ static const GnssInterface gGnssInterface = {
     gnssUpdateSvConfig,
     gnssResetSvConfig,
     configLeverArm,
+    configRobustLocation,
+    isSS5HWEnabled,
 };
 
 #ifndef DEBUG_X86
@@ -140,6 +144,7 @@ extern "C" const GnssInterface* getGnssInterface()
 const GnssInterface* getGnssInterface()
 #endif // DEBUG_X86
 {
+   gGnssInterface.initialize();
    return &gGnssInterface;
 }
 
@@ -339,17 +344,18 @@ static void getDebugReport(GnssDebugReport& report) {
 }
 
 static void updateConnectionStatus(bool connected, int8_t type,
-                                   bool roaming, NetworkHandle networkHandle) {
+                                   bool roaming, NetworkHandle networkHandle,
+                                   string& apn) {
     if (NULL != gGnssAdapter) {
         gGnssAdapter->getSystemStatus()->eventConnectionStatus(
-                connected, type, roaming, networkHandle);
+                connected, type, roaming, networkHandle, apn);
     }
 }
 
-static void odcpiInit(const OdcpiRequestCallback& callback)
+static void odcpiInit(const OdcpiRequestCallback& callback, OdcpiPrioritytype priority)
 {
     if (NULL != gGnssAdapter) {
-        gGnssAdapter->initOdcpiCommand(callback);
+        gGnssAdapter->initOdcpiCommand(callback, priority);
     }
 }
 
@@ -385,7 +391,8 @@ static void nfwInit(const NfwCbInfo& cbInfo) {
         gGnssAdapter->initNfwCommand(cbInfo);
     }
 }
-static void getPowerStateChanges(void* powerStateCb)
+
+static void getPowerStateChanges(std::function<void(bool)> powerStateCb)
 {
     if (NULL != gGnssAdapter) {
         gGnssAdapter->getPowerStateChangesCommand(powerStateCb);
@@ -449,6 +456,21 @@ static uint32_t gnssResetSvConfig() {
 static uint32_t configLeverArm(const LeverArmConfigInfo& configInfo){
     if (NULL != gGnssAdapter) {
         return gGnssAdapter->configLeverArmCommand(configInfo);
+    } else {
+        return 0;
+    }
+}
+
+static bool isSS5HWEnabled() {
+    if (NULL != gGnssAdapter) {
+        return gGnssAdapter->isSS5HWEnabled();
+    }
+    return false;
+}
+
+static uint32_t configRobustLocation(bool enable, bool enableForE911){
+    if (NULL != gGnssAdapter) {
+        return gGnssAdapter->configRobustLocationCommand(enable, enableForE911);
     } else {
         return 0;
     }

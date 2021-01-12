@@ -1,4 +1,4 @@
-/* Copyright (c) 2017-2020, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2020, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -26,57 +26,39 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-#define LOG_TAG "DataItemsFactoryProxy"
+#ifndef NATIVEAGPSHANDLER_H
+#define NATIVEAGPSHANDLER_H
 
-#include <dlfcn.h>
-#include <DataItemId.h>
+#include <cinttypes>
+#include <string.h>
+#include <gps_extended_c.h>
+#include <IDataItemObserver.h>
 #include <IDataItemCore.h>
-#include <DataItemsFactoryProxy.h>
-#include <loc_pla.h>
-#include <log_util.h>
-#include "loc_misc_utils.h"
+#include <IOsObserver.h>
 
-namespace loc_core
-{
-void* DataItemsFactoryProxy::dataItemLibHandle = NULL;
-get_concrete_data_item_fn* DataItemsFactoryProxy::getConcreteDIFunc = NULL;
+using namespace std;
+using loc_core::IOsObserver;
+using loc_core::IDataItemObserver;
+using loc_core::IDataItemCore;
 
-IDataItemCore* DataItemsFactoryProxy::createNewDataItem(DataItemId id)
-{
-    IDataItemCore *mydi = nullptr;
+class GnssAdapter;
 
-    if (NULL != getConcreteDIFunc) {
-        mydi = (*getConcreteDIFunc)(id);
-    }
-    else {
-        getConcreteDIFunc = (get_concrete_data_item_fn * )
-                dlGetSymFromLib(dataItemLibHandle, DATA_ITEMS_LIB_NAME, DATA_ITEMS_GET_CONCRETE_DI);
+class NativeAgpsHandler : public IDataItemObserver {
+public:
+    NativeAgpsHandler(IOsObserver* sysStatObs, GnssAdapter& adapter);
+    ~NativeAgpsHandler();
+    AgpsCbInfo getAgpsCbInfo();
+    // IDataItemObserver overrides
+    virtual void notify(const list<IDataItemCore*>& dlist);
+    inline virtual void getName(string& name);
+private:
+    static NativeAgpsHandler* sLocalHandle;
+    static void agnssStatusIpV4Cb(AGnssExtStatusIpV4 statusInfo);
+    void processATLRequestRelease(AGnssExtStatusIpV4 statusInfo);
+    IOsObserver* mSystemStatusObsrvr;
+    bool mConnected;
+    string mApn;
+    GnssAdapter& mAdapter;
+};
 
-        if (NULL != getConcreteDIFunc) {
-            LOC_LOGd("Loaded function %s : %p", DATA_ITEMS_GET_CONCRETE_DI, getConcreteDIFunc);
-            mydi = (*getConcreteDIFunc)(id);
-        }
-        else {
-            // dlysm failed.
-            const char * err = dlerror();
-            if (NULL == err)
-            {
-                err = "Unknown";
-            }
-            LOC_LOGe("failed to find symbol %s; error=%s", DATA_ITEMS_GET_CONCRETE_DI, err);
-        }
-    }
-    return mydi;
-}
-
-void DataItemsFactoryProxy::closeDataItemLibraryHandle()
-{
-    if (NULL != dataItemLibHandle) {
-        dlclose(dataItemLibHandle);
-        dataItemLibHandle = NULL;
-    }
-}
-
-} // namespace loc_core
-
-
+#endif // NATIVEAGPSHANDLER_H
