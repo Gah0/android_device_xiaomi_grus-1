@@ -4,7 +4,7 @@
    "target_path": "vendor/xiaomi/grus"
  },
  {
-   "repository": "android_kernel_xiaomi_grus",
+   "repository": "android_xiaomi_kernel_grus",
    "target_path": "kernel/xiaomi/grus"
  }
 ]
